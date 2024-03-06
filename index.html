@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lieve Soepje, wil je voor altijd de mijne zijn?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 100px;
+            overflow: hidden; /* Voorkomt het tonen van scrollbars */
+            background-color: black; /* Achtergrondkleur van de pagina */
+            color: white; /* Tekstkleur van de pagina */
+        }
+
+        #question {
+            font-size: 24px;
+            font-family: 'Pacifico', cursive; /* Toegevoegd lettertype voor een romantische uitstraling */
+            margin-bottom: 20px;
+        }
+
+        #buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            font-size: 18px;
+            padding: 15px 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.5s, background-color 0.5s, color 0.5s;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Pacifico', cursive; /* Toegevoegd lettertype voor de knoppen */
+        }
+
+        #no-button {
+            background-color: #e74c3c; /* Rode kleur voor 'Nee' knop */
+            color: white;
+        }
+
+        #yes-button {
+            background-color: #2ecc71; /* Groene kleur voor 'Ja' knop */
+            color: white;
+        }
+
+        #failure-image {
+            display: none;
+            margin-top: 20px;
+            width: 300px; /* Aangepaste breedte van de afbeelding */
+            height: 300px; /* Aangepaste hoogte van de afbeelding */
+        }
+
+        #heart-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        #heart-text {
+            font-size: 18px;
+            margin-top: 20px;
+            font-family: 'Pacifico', cursive; /* Toegevoegd lettertype voor de tekst boven het hart */
+        }
+
+        #heart {
+            margin-top: 20px;
+            width: 300px; /* Aangepaste breedte van het hart */
+            height: 300px; /* Aangepaste hoogte van het hart */
+        }
+
+        #runaway-btn {
+            background-color: #e74c3c; /* Rode kleur voor 'Nee' knop */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            font-family: 'Pacifico', cursive;
+            cursor: pointer;
+            transition: transform 0.5s, background-color 0.5s, color 0.5s;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
+</head>
+<body>
+    <div id="question">Lieve Soepje, wil je voor altijd de mijne zijn?</div>
+    <div id="buttons">
+        <button id="runaway-btn" onmouseover="moveButton('no')" onclick="showFailure()">Nee</button>
+        <div id="yes-button" class="button" onclick="showHeart()">Ja</div>
+    </div>
+    <div id="failure-image">
+        <img src="https://media.tenor.com/Q4aKLOPDvEoAAAAi/gatobaboso.gif" alt="Failure">
+    </div>
+    <div id="heart-container">
+        <div id="heart-text">Sabbeltje wil ook voor altijd de jouwe zijn</div>
+        <img id="heart" src="https://media.tenor.com/vHw75zknjZMAAAAi/radiofm4-fm4.gif" alt="Heart">
+    </div>
+
+    <script>
+        function getRandomPosition() {
+            const button = document.getElementById('runaway-btn');
+            const maxX = window.innerWidth - button.offsetWidth;
+            const maxY = window.innerHeight - button.offsetHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            return { x: randomX, y: randomY };
+        }
+
+        function moveButton(answer) {
+            const button = document.getElementById('runaway-btn');
+            const newPosition = getRandomPosition();
+
+            if (answer === 'no') {
+                const maxX = window.innerWidth - button.offsetWidth;
+                const maxY = window.innerHeight - button.offsetHeight;
+                const maxShiftX = maxX / 2; // Beperk horizontale verschuiving tot de helft van het scherm
+                const maxShiftY = maxY / 2; // Beperk verticale verschuiving tot de helft van het scherm
+
+                const clampedX = Math.min(maxX, Math.max(0, newPosition.x - maxShiftX));
+                const clampedY = Math.min(maxY, Math.max(0, newPosition.y - maxShiftY));
+
+                button.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+            }
+        }
+
+        function showHeart() {
+            const heartContainer = document.getElementById('heart-container');
+            const buttons = document.getElementById('buttons');
+
+            buttons.style.display = 'none';
+            heartContainer.style.display = 'flex';
+        }
+
+        function showFailure() {
+            const failureImage = document.getElementById('failure-image');
+            const buttons = document.getElementById('buttons');
+
+            buttons.style.display = 'none';
+            failureImage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
